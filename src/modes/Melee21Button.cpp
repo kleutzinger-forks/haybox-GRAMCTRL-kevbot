@@ -249,9 +249,11 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
 
     // Horizontal SOCD overrides X-axis modifiers (for ledgedash maximum jump
     // trajectory).
-    if (_horizontal_socd && !directions.vertical) {
-        outputs.leftStickX = 128 + (directions.x * 80);
-    }
+    // if (_horizontal_socd && !directions.vertical) {
+    //     outputs.leftStickX = 128 + (directions.x * 80);
+    // }
+
+    // I ledgedash with modx and down
 
     if (inputs.lightshield) {
         outputs.triggerRAnalog = 49;
