@@ -24,25 +24,25 @@ void Melee21Button::HandleSocd(InputState &inputs) {
 }
 
 void Melee21Button::UpdateDigitalOutputs(InputState &inputs, OutputState &outputs) {
-    outputs.a = inputs.b;
-    outputs.b = inputs.l;
-    outputs.x = inputs.y;
-    outputs.y = inputs.r;
-    outputs.buttonR = inputs.lightshield;
+    outputs.a = inputs.a;
+    outputs.b = inputs.b;
+    outputs.x = inputs.x;
+    outputs.y = inputs.y;
+    outputs.buttonR = inputs.z;
     if (inputs.nunchuk_connected) {
         outputs.triggerLDigital = inputs.nunchuk_z;
     } else {
-        outputs.triggerLDigital = inputs.a;
+        outputs.triggerLDigital = inputs.l;
     }
-    outputs.triggerRDigital = inputs.x;
+    outputs.triggerRDigital = inputs.r;
     outputs.start = inputs.start;
 
     // Activate D-Pad layer by holding Mod X + Mod Y or Up2 button.
     if ((inputs.mod_x && inputs.mod_y) || inputs.up2) {
-        outputs.dpadUp = inputs.c_right;
-        outputs.dpadDown = inputs.c_up;
+        outputs.dpadUp = inputs.c_up;
+        outputs.dpadDown = inputs.c_down;
         outputs.dpadLeft = inputs.c_left;
-        outputs.dpadRight = inputs.c_down;
+        outputs.dpadRight = inputs.c_right;
     }
 
     if (inputs.select)
@@ -57,18 +57,18 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         inputs.left,
         inputs.right,
         inputs.down,
-        inputs.midshield,
+        inputs.up,
         inputs.c_left,
+        inputs.c_right,
         inputs.c_down,
         inputs.c_up,
-        inputs.c_right,
         ANALOG_STICK_MIN,
         ANALOG_STICK_NEUTRAL,
         ANALOG_STICK_MAX,
         outputs
     );
 
-    bool shield_button_pressed = inputs.a || inputs.x || inputs.up || inputs.z;
+    bool shield_button_pressed = inputs.l || inputs.r || inputs.lightshield || inputs.midshield;
     if (directions.diagonal) {
         // q1/2 = 7000 7000
         outputs.leftStickX = 128 + (directions.x * 56);
@@ -103,7 +103,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             outputs.leftStickX = 128 + (directions.x * 59);
             outputs.leftStickY = 128 + (directions.y * 25);
             // 27.37104 - 7000 3625 (27.38) = 56 29
-            if (inputs.c_up) {
+            if (inputs.c_down) {
                 outputs.leftStickX = 128 + (directions.x * 56);
                 outputs.leftStickY = 128 + (directions.y * 29);
             }
@@ -113,12 +113,12 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
                 outputs.leftStickY = 128 + (directions.y * 39);
             }
             // 36.18552 - 7000 5125 (36.21) = 56 41
-            if (inputs.c_right) {
+            if (inputs.c_up) {
                 outputs.leftStickX = 128 + (directions.x * 56);
                 outputs.leftStickY = 128 + (directions.y * 41);
             }
             // 40.59276 - 6125 5250 (40.6) = 49 42
-            if (inputs.c_down) {
+            if (inputs.c_right) {
                 outputs.leftStickX = 128 + (directions.x * 49);
                 outputs.leftStickY = 128 + (directions.y * 42);
             }
@@ -129,7 +129,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
                 outputs.leftStickX = 128 + (directions.x * 73);
                 outputs.leftStickY = 128 + (directions.y * 31);
                 // 27.37104 - 8750 4500 (27.2) = 70 36
-                if (inputs.c_up) {
+                if (inputs.c_down) {
                     outputs.leftStickX = 128 + (directions.x * 70);
                     outputs.leftStickY = 128 + (directions.y * 36);
                 }
@@ -139,12 +139,12 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
                     outputs.leftStickY = 128 + (directions.y * 42);
                 }
                 // 36.18552 - 7375 5375 (36.1) = 59 43
-                if (inputs.c_right) {
+                if (inputs.c_up) {
                     outputs.leftStickX = 128 + (directions.x * 59);
                     outputs.leftStickY = 128 + (directions.y * 43);
                 }
                 // 40.59276 - 6375 5375 (40.1) = 51 43
-                if (inputs.c_down) {
+                if (inputs.c_right) {
                     outputs.leftStickX = 128 + (directions.x * 51);
                     outputs.leftStickY = 128 + (directions.y * 43);
                 }
@@ -180,7 +180,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         }
 
         // Turnaround neutral B nerf
-        if (inputs.l) {
+        if (inputs.b) {
             outputs.leftStickX = 128 + (directions.x * 80);
         }
 
@@ -190,7 +190,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             outputs.leftStickX = 128 + (directions.x * 25);
             outputs.leftStickY = 128 + (directions.y * 59);
             // 62.62896 - 3625 7000 (62.62) = 29 56
-            if (inputs.c_up) {
+            if (inputs.c_down) {
                 outputs.leftStickX = 128 + (directions.x * 29);
                 outputs.leftStickY = 128 + (directions.y * 56);
             }
@@ -200,12 +200,12 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
                 outputs.leftStickY = 128 + (directions.y * 63);
             }
             // 53.81448 - 5125 7000 (53.79) = 41 56
-            if (inputs.c_right) {
+            if (inputs.c_up) {
                 outputs.leftStickX = 128 + (directions.x * 41);
                 outputs.leftStickY = 128 + (directions.y * 56);
             }
             // 49.40724 - 6375 7625 (50.10) = 51 61
-            if (inputs.c_down) {
+            if (inputs.c_right) {
                 outputs.leftStickX = 128 + (directions.x * 51);
                 outputs.leftStickY = 128 + (directions.y * 61);
             }
@@ -216,7 +216,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
                 outputs.leftStickX = 128 + (directions.x * 31);
                 outputs.leftStickY = 128 + (directions.y * 73);
                 // 62.62896 - 4500 8750 (62.8) = 36 70
-                if (inputs.c_up) {
+                if (inputs.c_down) {
                     outputs.leftStickX = 128 + (directions.x * 36);
                     outputs.leftStickY = 128 + (directions.y * 70);
                 }
@@ -226,12 +226,12 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
                     outputs.leftStickY = 128 + (directions.y * 68);
                 }
                 // 53.81448 - 5875 8000 (53.7) = 47 64
-                if (inputs.c_right) {
+                if (inputs.c_up) {
                     outputs.leftStickX = 128 + (directions.x * 47);
                     outputs.leftStickY = 128 + (directions.y * 64);
                 }
                 // 49.40724 - 5875 7125 (50.49) = 47 57
-                if (inputs.c_down) {
+                if (inputs.c_right) {
                     outputs.leftStickX = 128 + (directions.x * 47);
                     outputs.leftStickY = 128 + (directions.y * 57);
                 }
@@ -253,10 +253,10 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
         outputs.leftStickX = 128 + (directions.x * 80);
     }
 
-    if (inputs.up) {
+    if (inputs.lightshield) {
         outputs.triggerRAnalog = 49;
     }
-    if (inputs.z) {
+    if (inputs.midshield) {
         outputs.triggerRAnalog = 94;
     }
 
