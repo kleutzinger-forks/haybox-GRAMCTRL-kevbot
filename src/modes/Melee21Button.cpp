@@ -1,4 +1,5 @@
 #include "modes/Melee21Button.hpp"
+#include "core/socd.hpp"
 
 #define ANALOG_STICK_MIN 48
 #define ANALOG_STICK_NEUTRAL 128
@@ -8,7 +9,7 @@ Melee21Button::Melee21Button(socd::SocdType socd_type, Melee21ButtonOptions opti
     _socd_pair_count = 4;
     _socd_pairs = new socd::SocdPair[_socd_pair_count]{
         socd::SocdPair{&InputState::left,    &InputState::right,   socd_type},
-        socd::SocdPair{ &InputState::down,   &InputState::up,      socd_type},
+        socd::SocdPair{ &InputState::down,   &InputState::up,      socd::SOCD_2IP},
         socd::SocdPair{ &InputState::c_left, &InputState::c_right, socd_type},
         socd::SocdPair{ &InputState::c_down, &InputState::c_up,    socd_type},
     };
@@ -123,7 +124,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             }
 
             /* Extended Up B Angles */
-            if (inputs.b) {
+            if (true) {
                 // 22.9638 - 9125 3875 (23.0) = 73 31
                 outputs.leftStickX = 128 + (directions.x * 73);
                 outputs.leftStickY = 128 + (directions.y * 31);
@@ -210,7 +211,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             }
 
             /* Extended Up B Angles */
-            if (inputs.b) {
+            if (true) {
                 // 67.0362 - 3875 9125 = 31 73
                 outputs.leftStickX = 128 + (directions.x * 31);
                 outputs.leftStickY = 128 + (directions.y * 73);
