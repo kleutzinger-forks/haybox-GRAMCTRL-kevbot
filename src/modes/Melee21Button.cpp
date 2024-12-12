@@ -124,7 +124,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             }
 
             /* Extended Up B Angles */
-            if (true) {
+            if (inputs.z) {
                 // 22.9638 - 9125 3875 (23.0) = 73 31
                 outputs.leftStickX = 128 + (directions.x * 73);
                 outputs.leftStickY = 128 + (directions.y * 31);
@@ -211,7 +211,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
             }
 
             /* Extended Up B Angles */
-            if (true) {
+            if (inputs.z) {
                 // 67.0362 - 3875 9125 = 31 73
                 outputs.leftStickX = 128 + (directions.x * 31);
                 outputs.leftStickY = 128 + (directions.y * 73);
