@@ -45,9 +45,9 @@ void Melee21Button::UpdateDigitalOutputs(InputState &inputs, OutputState &output
         outputs.dpadRight = inputs.c_right;
     }
 
-    if (inputs.select)
+    if (inputs.up2)
         outputs.dpadLeft = true;
-    if (inputs.home)
+    if (inputs.midshield)
         outputs.dpadRight = true;
 }
 
@@ -258,7 +258,7 @@ void Melee21Button::UpdateAnalogOutputs(InputState &inputs, OutputState &outputs
     if (inputs.lightshield) {
         outputs.triggerRAnalog = 49;
     }
-    if (inputs.midshield) {
+    if (inputs.midshield && false) {  // disabled for dpad instead
         outputs.triggerRAnalog = 94;
     }
 
