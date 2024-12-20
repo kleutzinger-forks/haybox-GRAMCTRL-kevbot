@@ -39,10 +39,11 @@ void Melee21Button::UpdateDigitalOutputs(InputState &inputs, OutputState &output
 
     // Activate D-Pad layer by holding Mod X + Mod Y or Up2 button.
     if ((inputs.mod_x && inputs.mod_y) || inputs.up2) {
-        outputs.dpadUp = inputs.c_up;
-        outputs.dpadDown = inputs.c_down;
+        // make d-pad un-cycled on c-stick
+        outputs.dpadUp = inputs.c_right;
+        outputs.dpadDown = inputs.c_up || inputs.b;
         outputs.dpadLeft = inputs.c_left;
-        outputs.dpadRight = inputs.c_right;
+        outputs.dpadRight = inputs.c_down;
     }
 
     if (inputs.up2)
